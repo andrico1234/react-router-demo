@@ -1,16 +1,16 @@
 import { QueryFunction, QueryFunctionContext } from "@tanstack/react-query";
-import { SearchResult } from "../types/searchResults";
+import { SearchResults } from "../types/searchResults";
 
 interface Params {
   page?: number;
   pageSize?: number;
-  query: string;
+  q: string;
 }
 
-async function fetchSearchResults(params: Params): Promise<SearchResult[]> {
-  const { page = 0, pageSize = 10, query } = params;
+async function fetchSearchResults(params: Params): Promise<SearchResults> {
+  const { page = 0, pageSize = 10, q } = params;
 
-  const response = await fetch(`https://api.github.com/search/users?`);
+  const response = await fetch(`https://api.github.com/search/users?q=${q}`);
 
   return response.json();
 }

@@ -1,23 +1,41 @@
 import { useQuery } from "@tanstack/react-query";
-import { LoaderFunction } from "react-router-dom";
+import { Link, LoaderFunction, useLoaderData } from "react-router-dom";
 import fetchSearchResults from "../api/fetchSearchResults";
-import { SearchResult } from "../types/searchResults";
+import type { SearchResults as ISearchResults } from "../types/searchResults";
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+interface LoaderRes {
+  users: ISearchResults["items"];
+  total: number;
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
-  const query = url.searchParams.get("q") ?? "";
+  const q = url.searchParams.get("q") ?? "";
 
-  const searchResults = fetchSearchResults({ query });
+  const searchResults = await fetchSearchResults({ q });
+
+  return {
+    users: searchResults.items,
+    total: searchResults.total_count,
+  };
 };
 
 export function SearchResults() {
+  const { users, total } = useLoaderData() as LoaderRes;
+
   return (
     <>
-      <div id="sidebar">
-        <h1>GitHub Stuff</h1>
-        <div></div>
+      <Link to="/">Back</Link>
+      <h1>GitHub Stuff</h1>
+      <ul>
+        {users.map((user) => {
+          return <li key={user.id}>{user.login}</li>;
+        })}
+      </ul>
+
+      <div id="detail">
+        <p>Total: {total}</p>
       </div>
-      <div id="detail"></div>
     </>
   );
 }
