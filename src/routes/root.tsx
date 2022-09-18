@@ -1,4 +1,4 @@
-import { ActionFunction, redirect, Form } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 export function Root() {
   return (

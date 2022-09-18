@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router-dom";
 
 interface ErrorResponse {
-  data: any;
+  data: unknown;
   status: number;
   statusText: string;
 }
