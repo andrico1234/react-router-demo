@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Link, LoaderFunction, useLoaderData } from "react-router-dom";
 import fetchSearchResults from "../api/fetchSearchResults";
 import type { SearchResults as ISearchResults } from "../types/searchResults";

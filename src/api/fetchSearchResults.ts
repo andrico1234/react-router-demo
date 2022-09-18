@@ -1,4 +1,3 @@
-import { QueryFunction, QueryFunctionContext } from "@tanstack/react-query";
 import { SearchResults } from "../types/searchResults";
 
 interface Params {
